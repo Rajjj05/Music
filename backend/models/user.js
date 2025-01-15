@@ -1,14 +1,23 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema(
-  {
-    clerkId: { type: String, required: true, unique: true },
-    email: { type: String, required: true },
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
-    profileImage: { type: String },
+const UserSchema = new mongoose.Schema({
+  clerkId: {
+    type: String,
+    required: true,
+    unique: true,
   },
-  { timestamps: true }
-);
+  email: {
+    type: String,
+    required: true,
+  },
+  firstName: {
+    type: String,
+  },
+  lastName: {
+    type: String,
+  },
+  playlists: [{ type: mongoose.Schema.Types.ObjectId, ref: "Playlist" }],
+  likedSongs: [{ type: mongoose.Schema.Types.ObjectId, ref: "LikedSong" }],
+});
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("User", UserSchema);
